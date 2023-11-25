@@ -51,7 +51,7 @@ ALL TIMES.
 #include <stdlib.h>
 #include <fstream>
 #include <iostream>
-#include "vadd.h"
+#include "spmv_tb.h"
 #include <stdio.h>
 #include <math.h>
 
@@ -71,7 +71,8 @@ int row_size_val = 10;
 int *row_size;
 int col_size = 10;
 int *nnz;
-int nnz_val = 10;
+//int nnz_val = 10;
+double density = 0.25;
 
 static const std::string error_message =
     "Error: Result mismatch:\n"
@@ -214,50 +215,29 @@ int read_mtx_SpMV(char* inFilename, int *row_size, int *col_size, int *nnz) {
 
 }
 
-int generateSpMV(int row_size, int col_size, int *nnz) {
+void generateSparseMatrix(int numRows, int numCols, double density, int *nnz) {
 
-	int rand_index[II*M];
+    // Initialize random number generator
+    srand(time(NULL));
 
-	int v_i = 0;
-	int r_i = 0;
-	int index_not_found = 1;
+    int index = 0;
+    row_ptr[0] = 0;
+    int NNZ = numRows * numCols * density;
 
-
-
-	for (int ix = 0; ix < row_size; ix++) {
-
-		row_ptr[r_i] = v_i;
-		int r_tmp = 0;
-		for (int i = 0; i < II*M; i++) {
-			index_not_found = 1;
-			while(index_not_found) {
-				int rand_col_index = rand()%col_size;
-				index_not_found = 0;
-				for (int s = 0; s < r_tmp; s++) {
-					if (rand_index[s] == rand_col_index) {
-						index_not_found = 1;
-						break;
-					}
-				}
-				if (index_not_found == 0)
-					rand_index[r_tmp++] = rand_col_index;
-			}
-		}
-
-		for (int i = 0; i < II*M; i++) {
-			DATA_TYPE r = (10.0*(rand()+1)/RAND_MAX);
-			values[v_i] = r;
-			col_indices[v_i++] = rand_index[i];
-		}
-		r_i++;
-	}
-
-	*nnz = v_i--;
-	row_ptr[r_i]=*nnz;
-	return 0;
+    for (int i = 0; i < numRows; ++i) {
+        for (int j = 0; j < numCols && index < NNZ; ++j) {
+            double randValue = (double)rand() / RAND_MAX;
+            if (randValue < density) {
+                // Add a non-zero element to the matrix
+            	values[index] = rand() % 100;  // For simplicity, using random integers between 0 and 9
+                col_indices[index] = j;
+                index++;
+            }
+        }
+        row_ptr[i + 1] = index;
+    }
+    *nnz = index;
 }
-
-
 
 int gold_spmv() {
 
@@ -286,13 +266,13 @@ int main(int argc, char* argv[]) {
 		return EXIT_FAILURE;
 	}
     std::string xclbinFilename = argv[1];
-    
+
     // Compute the size of array in bytes
     size_t size_in_bytes = DATA_SIZE * sizeof(int);
-    
+
     // Creates a vector of DATA_SIZE elements with an initial value of 10 and 32
     // using customized allocator for getting buffer alignment to 4k boundary
-    
+
     std::vector<cl::Device> devices;
     cl::Device device;
     cl_int err;
@@ -320,9 +300,9 @@ int main(int argc, char* argv[]) {
         }
     }
     if (found_device == false){
-       std::cout << "Error: Unable to find Target Device " 
+       std::cout << "Error: Unable to find Target Device "
            << device.getInfo<CL_DEVICE_NAME>() << std::endl;
-       return EXIT_FAILURE; 
+       return EXIT_FAILURE;
     }
 
     // Creating Context and Command Queue for selected device
@@ -335,7 +315,7 @@ int main(int argc, char* argv[]) {
         printf("ERROR: %s xclbin not available please build\n", xclbinFilename.c_str());
         exit(EXIT_FAILURE);
     }
-    // Load xclbin 
+    // Load xclbin
     std::cout << "Loading: '" << xclbinFilename << "'\n";
     std::ifstream bin_file(xclbinFilename, std::ifstream::binary);
     bin_file.seekg (0, bin_file.end);
@@ -343,19 +323,19 @@ int main(int argc, char* argv[]) {
     bin_file.seekg (0, bin_file.beg);
     char *buf = new char [nb];
     bin_file.read(buf, nb);
-    
+
     // Creating Program from Binary File
     cl::Program::Binaries bins;
     bins.push_back({buf,nb});
     devices.resize(1);
     OCL_CHECK(err, program = cl::Program(context, devices, bins, NULL, &err));
-    
-    // This call will get the kernel object from program. A kernel is an 
-    // OpenCL function that is executed on the FPGA. 
+
+    // This call will get the kernel object from program. A kernel is an
+    // OpenCL function that is executed on the FPGA.
     OCL_CHECK(err, krnl_sparse_mv = cl::Kernel(program,"spmv_mohammad", &err));
 
     // These commands will allocate memory on the Device. The cl::Buffer objects can
-    // be used to reference the memory locations on the device. 
+    // be used to reference the memory locations on the device.
     OCL_CHECK(err, cl::Buffer buffer_x(context, CL_MEM_READ_ONLY, COL_SIZE_MAX*sizeof(float), NULL, &err));
     OCL_CHECK(err, cl::Buffer buffer_values(context, CL_MEM_READ_ONLY, NNZ_MAX*sizeof(float), NULL, &err));
     OCL_CHECK(err, cl::Buffer buffer_col_indices(context, CL_MEM_READ_ONLY, NNZ_MAX*sizeof(int), NULL, &err));
@@ -363,7 +343,7 @@ int main(int argc, char* argv[]) {
     OCL_CHECK(err, cl::Buffer buffer_row_ptr(context, CL_MEM_READ_ONLY, (ROW_SIZE_MAX+1)*sizeof(int), NULL, &err));
     OCL_CHECK(err, cl::Buffer buffer_row_size(context, CL_MEM_READ_ONLY, sizeof(int), NULL, &err));
     OCL_CHECK(err, cl::Buffer buffer_nnz(context, CL_MEM_READ_ONLY, sizeof(int), NULL, &err));
-    
+
 	y_gold      = (DATA_TYPE *)malloc(ROW_SIZE_MAX*sizeof(DATA_TYPE));
 
     //set the kernel Arguments
@@ -388,16 +368,22 @@ int main(int argc, char* argv[]) {
 
     *row_size = 10;
     *nnz = 0;
-    generateSpMV(row_size_val, col_size, nnz);
+    generateSparseMatrix(row_size_val, col_size, density, nnz);
     printf("NNZ = %d\n", *nnz);
 
-//    	read_mtx_SpMV(argv[1], &row_size, &col_size, &nnz);
+// s   	read_mtx_SpMV(argv[1], &row_size, &col_size, &nnz);
 
 	for (int i = 0; i < col_size; i++) {
 		x[i] = (1.0*rand()+1.0)/RAND_MAX;
 	}
 
 	gold_spmv();
+
+	double hardware_start;
+	double hardware_end;
+	double hardware_execution_time;
+	printf("\rHardware version started!\n\r");
+	hardware_start = getTimestamp();
 
     // Data will be migrated to kernel space
     OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_x,buffer_values,buffer_col_indices,buffer_row_ptr},0/* 0 means from host*/));
@@ -413,7 +399,10 @@ int main(int argc, char* argv[]) {
     OCL_CHECK(err, q.finish());
 
     //Verify the result
-
+    hardware_end = getTimestamp();
+    printf("\rHardware version finished!\n\r");
+    hardware_execution_time = (hardware_end-hardware_start)/(1000);
+    printf("Hardware execution time  %.6f ms elapsed\n", hardware_execution_time);
 
 
 	int status = 0;

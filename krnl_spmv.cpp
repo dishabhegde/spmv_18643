@@ -29,7 +29,7 @@ SOFTWARE.
 */
 
 
-#include "spmv_mohammad.h"
+#include "spmv.h"
 #include <stdio.h>
 
 #include <hls_stream.h>
