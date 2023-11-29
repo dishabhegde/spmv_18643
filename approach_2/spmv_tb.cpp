@@ -14,6 +14,9 @@
 #include <string>
 #include "spmv_tb.h"
 
+#include "time.h"
+#include <sys/time.h>
+
 using namespace std;
 
 static const std::string error_message =
@@ -133,7 +136,7 @@ void generateSparseMatrix(int numRows, int numCols, double density) {
     int index = 0;
     rowPtr[0] = 0;
 
-    for (int i = 0; i < numRows && index < NNZ; ++i) {
+    for (int i = 0; i < numRows; ++i) {
         for (int j = 0; j < numCols && index < NNZ; ++j) {
             double randValue = (double)rand() / RAND_MAX;
             if (randValue < density) {
@@ -148,6 +151,12 @@ void generateSparseMatrix(int numRows, int numCols, double density) {
         }
         rowPtr[i + 1] = index;
     }
+}
+
+double getTimestamp() {
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	return tv.tv_usec + tv.tv_sec*1e6;
 }
 
 int main(int argc, char* argv[]) {
@@ -224,7 +233,7 @@ int main(int argc, char* argv[]) {
 
     // This call will get the kernel object from program. A kernel is an
     // OpenCL function that is executed on the FPGA.
-    OCL_CHECK(err, krnl_sparse_matrix_mul = cl::Kernel(program,"krnl_spmv", &err));
+    OCL_CHECK(err, krnl_sparse_matrix_mul = cl::Kernel(program,"krnl_spmv_fast", &err));
 
     std::cout << "Allocating the device buffers..." << std::endl;
     // These commands will allocate memory on the Device. The cl::Buffer objects can
@@ -299,6 +308,12 @@ int main(int argc, char* argv[]) {
 	}
 	std::cout << std::endl;
 
+	double hardware_start;
+	double hardware_end;
+	double hardware_execution_time;
+	printf("\rHardware version started!\n\r");
+	hardware_start = getTimestamp();
+
     // Data will be migrated to kernel space
     OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_rowPtr,buffer_columnIndex,buffer_values,buffer_x},0/* 0 means from host*/));
 
@@ -313,16 +328,14 @@ int main(int argc, char* argv[]) {
 
     OCL_CHECK(err, q.finish());
 
+    hardware_end = getTimestamp();
+	printf("\rHardware version finished!\n\r");
+	hardware_execution_time = (hardware_end-hardware_start)/(1000);
+	printf("Hardware execution time  %.6f ms elapsed\n", hardware_execution_time);
+
     std::cout << "Finish the kernel running. Start on result checking..." << std::endl;
 
     matrixvector(M, y_sw, x);
-
-	for(int i = 0; i < SIZE; i++) {
-		if(y_sw[i] != ptr_y[i]){
-			std::cout << "Mismatching pair: " << y_sw[i] << ", " << ptr_y[i] << std::endl;
-			fail = 1;
-		}
-	}
 
 //    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_rowPtr , ptr_rowPtr));
 //    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_columnIndex , ptr_columnIndex));
@@ -330,6 +343,25 @@ int main(int argc, char* argv[]) {
 //    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_x , ptr_x));
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_y , ptr_y));
     OCL_CHECK(err, err = q.finish());
+
+    std::cout << "Software outputs are:" << std::endl;
+	for(int i = 0; i < SIZE; i++){
+		std::cout << y_sw[i] << " " ;
+	}
+	std::cout << std::endl;
+
+	std::cout << "Kernel values are:" << std::endl;
+	for(int i = 0; i < SIZE; i++){
+		std::cout << ptr_y[i] << " " ;
+	}
+	std::cout << std::endl;
+
+	for(int i = 0; i < SIZE; i++) {
+		if(y_sw[i] != ptr_y[i]){
+			std::cout << "Mismatching pair: " << y_sw[i] << ", " << ptr_y[i] << std::endl;
+			fail = 1;
+		}
+	}
 
     std::cout << "TEST " << (fail ? "FAILED" : "PASSED") << std::endl;
     return (fail ? EXIT_FAILURE : EXIT_SUCCESS);
