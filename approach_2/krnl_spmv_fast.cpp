@@ -1,41 +1,18 @@
 #include "spmv.h"
 #include <hls_stream.h>
 
-#define II 9
+#define II 7
 
 extern "C" {
-void krnl_spmv_fast(
-		const int rowPtr[NUM_ROWS + 1],
-		const int cols[NNZ],
-		const DTYPE values[NNZ],
+void spmv_kernel(
+		int rows_length[NUM_ROWS],
+		int rows_length_pad[NUM_ROWS],
+		int cols[NNZ],
+		DTYPE values[NNZ],
 		DTYPE y[SIZE],
-		const DTYPE x[SIZE])
+		DTYPE x[SIZE],
+		int new_nnz)
 {
-
-	// rowPtr to rows_length
-	int rows_length[NUM_ROWS] = {0};
-	for (int i = 1; i < NUM_ROWS + 1; i++) {
-#pragma HLS PIPELINE
-		rows_length[i - 1] = rowPtr[i] - rowPtr[i - 1];
-	}
-
-	int rows_length_pad[NUM_ROWS];
-	int new_nnz = 0;
-	for (int i = 0; i < NUM_ROWS; i++) {
-#pragma HLS PIPELINE
-		int r = rows_length[i];
-		int r_diff = r % II;
-		if (r == 0) {
-			rows_length_pad[i] = II;
-			new_nnz += II;
-		} else if (r_diff != 0) {
-			rows_length_pad[i] = r + (II - r_diff);
-			new_nnz += r + (II - r_diff);
-		} else {
-			rows_length_pad[i] = r;
-			new_nnz += r;
-		}
-	}
 
 #pragma HLS DATAFLOW
 
@@ -92,4 +69,45 @@ void krnl_spmv_fast(
 		y[i] = results_fifo.read();
 	}
 }
+
+void krnl_spmv_fast(
+		int rowPtr[NUM_ROWS + 1],
+		int cols[NNZ],
+		DTYPE values[NNZ],
+		DTYPE y[SIZE],
+		DTYPE x[SIZE])
+{
+
+#pragma HLS INTERFACE mode=m_axi port=rowPtr offset=slave bundle=gmem0
+#pragma HLS INTERFACE mode=m_axi port=cols offset=slave bundle=gmem1
+#pragma HLS INTERFACE mode=m_axi port=values offset=slave bundle=gmem2
+#pragma HLS INTERFACE mode=m_axi port=x offset=slave bundle=gmem3
+
+	// rowPtr to rows_length
+	int rows_length[NUM_ROWS] = {0};
+	for (int i = 1; i < NUM_ROWS + 1; i++) {
+#pragma HLS PIPELINE
+		rows_length[i - 1] = rowPtr[i] - rowPtr[i - 1];
+	}
+
+	int rows_length_pad[NUM_ROWS];
+	int new_nnz = 0;
+	for (int i = 0; i < NUM_ROWS; i++) {
+#pragma HLS PIPELINE
+		int r = rows_length[i];
+		int r_diff = r % II;
+		if (r == 0) {
+			rows_length_pad[i] = II;
+			new_nnz += II;
+		} else if (r_diff != 0) {
+			rows_length_pad[i] = r + (II - r_diff);
+			new_nnz += r + (II - r_diff);
+		} else {
+			rows_length_pad[i] = r;
+			new_nnz += r;
+		}
+	}
+	spmv_kernel(rows_length, rows_length_pad, cols, values, y, x, new_nnz);
+}
+
 }

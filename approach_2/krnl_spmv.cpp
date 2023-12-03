@@ -3,12 +3,17 @@
 
 extern "C" {
 void krnl_spmv(
-		const int *rowPtr,
-		const int *cols,
-		const DTYPE *values,
-		DTYPE *y,
-		const DTYPE *x
+		int rowPtr[NUM_ROWS + 1],
+		int cols[NNZ],
+		DTYPE values[NNZ],
+		DTYPE y[SIZE],
+		DTYPE x[SIZE]
 ) {
+
+#pragma HLS INTERFACE mode=m_axi port=rowPtr offset=slave bundle=gmem0
+#pragma HLS INTERFACE mode=m_axi port=cols offset=slave bundle=gmem1
+#pragma HLS INTERFACE mode=m_axi port=values offset=slave bundle=gmem2
+#pragma HLS INTERFACE mode=m_axi port=x offset=slave bundle=gmem3
 
 	int rows_length[NUM_ROWS] = {0};
 	for (int i = 1; i < NUM_ROWS + 1; i++) {
@@ -40,33 +45,33 @@ void krnl_spmv(
 	DTYPE value;
 	int col;
 
-//	for (int i = 0; i < NNZ; i++) {
-//#pragma HLS PIPELINE
-//		if (col_left == 0) {
-//			col_left = rows_fifo.read();
-//			sum = 0;
-//		}
-//		value = values_fifo.read();
-//		col   = cols_fifo.read();
-//		sum  += value * x[col];
-//		col_left--;
-//		if (col_left == 0) {
-//			results_fifo << sum;
-//		}
-//	}
-
-	for (int i = 0; i < NUM_ROWS; i++) {
+	for (int i = 0; i < NNZ; i++) {
 #pragma HLS PIPELINE
-		col_left = rows_fifo.read();
-		sum = 0;
-		while (col_left != 0) {
-			value = values_fifo.read();
-			col   = cols_fifo.read();
-			sum  += value * x[col];
-			col_left--;
+		if (col_left == 0) {
+			col_left = rows_fifo.read();
+			sum = 0;
 		}
-		results_fifo << sum;
+		value = values_fifo.read();
+		col   = cols_fifo.read();
+		sum  += value * x[col];
+		col_left--;
+		if (col_left == 0) {
+			results_fifo << sum;
+		}
 	}
+
+//	for (int i = 0; i < NUM_ROWS; i++) {
+//#pragma HLS PIPELINE
+//		col_left = rows_fifo.read();
+//		sum = 0;
+//		while (col_left != 0) {
+//			value = values_fifo.read();
+//			col   = cols_fifo.read();
+//			sum  += value * x[col];
+//			col_left--;
+//		}
+//		results_fifo << sum;
+//	}
 
 	for (int i = 0; i < NUM_ROWS; i++) {
 #pragma HLS PIPELINE
