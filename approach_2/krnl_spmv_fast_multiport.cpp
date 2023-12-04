@@ -57,38 +57,42 @@ void spmv_kernel(
 //		cols_fifo   << cols[i];
 //	}
 	for(int l = 0; l < NUM_STREAMS; l++) {
-		for (int i = 0; i < new_nnz_split[l]; i+=II) {
-		#pragma HLS PIPELINE
-			if (row_length_pad[l] == 0) {
-				row_length_pad[l] = rows_length_pad[l*NUM_ROWS/NUM_STREAMS + k[l]];
-				row_length[l] = rows_length[l*NUM_ROWS/NUM_STREAMS + k[l]++];
-				row_counter[l] = 0;
-				sum[l] = 0;
-			}
+//		for (int i = 0; i < new_nnz_split[l]; i+=II) {
+		for (int i = 0; i < NUM_ROWS/NUM_STREAMS; i++) {
+#pragma HLS pipeline off
+			for (int n = 0; n < rows_length_pad[l*NUM_ROWS/NUM_STREAMS + i]; n+=II) {
 
-			for (int j = 0; j < II; j++) {
-				row_counter[l]++;
-				if (row_counter[l] > row_length[l]) {
-					term[l][j] = 0;
-				} else {
-					value[l] = values_fifo[l].read();
-					col[l]   = cols_fifo[l].read();
-					term[l][j] = value[l] * x[col[l]];
+				#pragma HLS PIPELINE
+				if (row_length_pad[l] == 0) {
+					row_length_pad[l] = rows_length_pad[l*NUM_ROWS/NUM_STREAMS + i];
+					row_length[l] = rows_length[l*NUM_ROWS/NUM_STREAMS + i];
+					row_counter[l] = 0;
+					sum[l] = 0;
+				}
+
+				for (int j = 0; j < II; j++) {
+					row_counter[l]++;
+					if (row_counter[l] > row_length[l]) {
+						term[l][j] = 0;
+					} else {
+						value[l] = values_fifo[l].read();
+						col[l]   = cols_fifo[l].read();
+						term[l][j] = value[l] * x[col[l]];
+					}
+				}
+
+				DTYPE sum_tmp = 0;
+				for (int j = 0; j < II; j++) {
+					sum_tmp += term[l][j];
+				}
+				sum[l] += sum_tmp;
+
+				row_length_pad[l] -= II;
+				if (row_length_pad[l] == 0) {
+					results_fifo[l] << sum[l];
 				}
 			}
-
-			DTYPE sum_tmp = 0;
-			for (int j = 0; j < II; j++) {
-				sum_tmp += term[l][j];
-			}
-			sum[l] += sum_tmp;
-
-			row_length_pad[l] -= II;
-			if (row_length_pad[l] == 0) {
-				results_fifo[l] << sum[l];
-			}
 		}
-
 	}
 
 	for(int l = 0; l < NUM_STREAMS; l++) {
@@ -143,4 +147,3 @@ void krnl_spmv_fast_multiport(
 
 }
 }
-
