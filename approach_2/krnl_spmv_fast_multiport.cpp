@@ -16,6 +16,9 @@ void spmv_kernel(
 {
 #pragma HLS DATAFLOW
 
+#pragma HLS ARRAY_PARTITION variable=rows_length_pad dim=1
+#pragma HLS ARRAY_PARTITION variable=x dim=1
+
 	int row_length_pad[NUM_STREAMS] = {0}, row_length[NUM_STREAMS] = {0}, k[NUM_STREAMS] = {0}, row_counter[NUM_STREAMS] = {0};
 	hls::stream<DTYPE> values_fifo[NUM_STREAMS];
 	hls::stream<int>   cols_fifo[NUM_STREAMS];
@@ -119,7 +122,6 @@ void krnl_spmv_fast_multiport(
 
 	int rows_length_pad[NUM_ROWS];
 
-#pragma HLS ARRAY_PARTITION variable=rows_length_pad dim=1
 
 	int new_nnz = 0;
 	for (int i = 0; i < NUM_ROWS; i++) {
