@@ -19,6 +19,7 @@ void spmv_kernel(
 
 #pragma HLS ARRAY_PARTITION variable=rows_length_pad dim=1
 #pragma HLS ARRAY_PARTITION variable=rows_length dim=1
+#pragma HLS ARRAY_PARTITION variable=x_dup dim=1
 
 
 	int row_length_pad[NUM_STREAMS] = {0}, row_length[NUM_STREAMS] = {0}, k[NUM_STREAMS] = {0}, row_counter[NUM_STREAMS] = {0};
