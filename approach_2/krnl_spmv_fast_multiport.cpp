@@ -24,6 +24,22 @@ void spmv_kernel(
 	hls::stream<int>   cols_fifo[NUM_STREAMS];
 	hls::stream<DTYPE> results_fifo[NUM_STREAMS];
 
+#pragma HLS stream variable=values_fifo[0] type=fifo depth=32
+#pragma HLS stream variable=values_fifo[1] type=fifo depth=32
+#pragma HLS stream variable=cols_fifo[0] type=fifo depth=32
+#pragma HLS stream variable=cols_fifo[1] type=fifo depth=32
+#pragma HLS stream variable=results_fifo[0] type=fifo depth=32
+#pragma HLS stream variable=results_fifo[1] type=fifo depth=32
+
+//
+//#pragma HLS INTERFACE mode=axis port=values_fifo[0]
+//#pragma HLS INTERFACE mode=axis port=values_fifo[1]
+//#pragma HLS INTERFACE mode=axis port=cols_fifo[0]
+//#pragma HLS INTERFACE mode=axis port=cols_fifo[1]
+//#pragma HLS INTERFACE mode=axis port=results_fifo[0]
+//#pragma HLS INTERFACE mode=axis port=results_fifo[1]
+
+
 	DTYPE sum[NUM_STREAMS] = {0};
 	DTYPE value[NUM_STREAMS];
 	int col[NUM_STREAMS];
