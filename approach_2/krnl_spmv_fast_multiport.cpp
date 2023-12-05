@@ -1,8 +1,8 @@
 #include "spmv.h"
 #include <hls_stream.h>
 
-#define II 7
-#define NUM_STREAMS 2
+#define II 4
+#define NUM_STREAMS 4
 
 extern "C" {
 void spmv_kernel(
@@ -11,13 +11,15 @@ void spmv_kernel(
 		int cols[NNZ],
 		DTYPE values[NNZ],
 		DTYPE y[SIZE],
-		DTYPE x[SIZE],
+		DTYPE x_dup[NUM_STREAMS][SIZE],
 		int new_nnz)
 {
 #pragma HLS DATAFLOW
 
+
 #pragma HLS ARRAY_PARTITION variable=rows_length_pad dim=1
-#pragma HLS ARRAY_PARTITION variable=x dim=1
+#pragma HLS ARRAY_PARTITION variable=rows_length dim=1
+
 
 	int row_length_pad[NUM_STREAMS] = {0}, row_length[NUM_STREAMS] = {0}, k[NUM_STREAMS] = {0}, row_counter[NUM_STREAMS] = {0};
 	hls::stream<DTYPE> values_fifo[NUM_STREAMS];
@@ -26,12 +28,18 @@ void spmv_kernel(
 
 #pragma HLS stream variable=values_fifo[0] type=fifo depth=32
 #pragma HLS stream variable=values_fifo[1] type=fifo depth=32
+#pragma HLS stream variable=values_fifo[2] type=fifo depth=32
+#pragma HLS stream variable=values_fifo[3] type=fifo depth=32
 #pragma HLS stream variable=cols_fifo[0] type=fifo depth=32
 #pragma HLS stream variable=cols_fifo[1] type=fifo depth=32
+#pragma HLS stream variable=cols_fifo[2] type=fifo depth=32
+#pragma HLS stream variable=cols_fifo[3] type=fifo depth=32
 #pragma HLS stream variable=results_fifo[0] type=fifo depth=32
 #pragma HLS stream variable=results_fifo[1] type=fifo depth=32
+#pragma HLS stream variable=results_fifo[2] type=fifo depth=32
+#pragma HLS stream variable=results_fifo[3] type=fifo depth=32
 
-//
+
 //#pragma HLS INTERFACE mode=axis port=values_fifo[0]
 //#pragma HLS INTERFACE mode=axis port=values_fifo[1]
 //#pragma HLS INTERFACE mode=axis port=cols_fifo[0]
@@ -47,6 +55,11 @@ void spmv_kernel(
 	int new_nnz_split[NUM_STREAMS] = {0};
 	int nnz_split[NUM_STREAMS] = {0};
 
+#pragma HLS partition variable=value dim=1
+#pragma HLS partition variable=col dim=1
+#pragma HLS partition variable=term dim=1
+
+
 	int index[NUM_STREAMS] = {0};
 	for(int i = 0; i < NUM_STREAMS; i++) {
 		for (int l = 0; l < NUM_ROWS/NUM_STREAMS; l++) {
@@ -54,6 +67,7 @@ void spmv_kernel(
 			nnz_split[i] += rows_length[i*NUM_ROWS/NUM_STREAMS + l];
 		}
 	}
+
 	for (int i = 0; i < NUM_STREAMS - 1; i++) {
 		index[i+1] = nnz_split[i]+index[i];
 	}
@@ -73,9 +87,10 @@ void spmv_kernel(
 //		cols_fifo   << cols[i];
 //	}
 	for(int l = 0; l < NUM_STREAMS; l++) {
+#pragma HLS unroll
 //		for (int i = 0; i < new_nnz_split[l]; i+=II) {
 		for (int i = 0; i < NUM_ROWS/NUM_STREAMS; i++) {
-#pragma HLS pipeline off
+//#pragma HLS pipeline off
 			for (int n = 0; n < rows_length_pad[l*NUM_ROWS/NUM_STREAMS + i]; n+=II) {
 
 				#pragma HLS PIPELINE
@@ -93,7 +108,7 @@ void spmv_kernel(
 					} else {
 						value[l] = values_fifo[l].read();
 						col[l]   = cols_fifo[l].read();
-						term[l][j] = value[l] * x[col[l]];
+						term[l][j] = value[l] * x_dup[l][col[l]];
 					}
 				}
 
@@ -112,6 +127,7 @@ void spmv_kernel(
 	}
 
 	for(int l = 0; l < NUM_STREAMS; l++) {
+//#pragma HLS unroll
 		for (int i = 0; i < NUM_ROWS/NUM_STREAMS; i++) {
 	#pragma HLS PIPELINE
 			y[l*NUM_ROWS/NUM_STREAMS + i] = results_fifo[l].read();
@@ -135,7 +151,7 @@ void krnl_spmv_fast_multiport(
 	int rows_length[NUM_ROWS] = {0};
 //	int rows_length_int[NUM_ROWS] = {0};
 	for (int i = 1; i < NUM_ROWS + 1; i++) {
-#pragma HLS PIPELINE
+#pragma HLS PIPELINE off
 		rows_length[i - 1] = rowPtr[i] - rowPtr[i - 1];
 //		rows_length_int[i-1] = rowPtr[i] - rowPtr[i-1];
 	}
@@ -145,7 +161,7 @@ void krnl_spmv_fast_multiport(
 
 	int new_nnz = 0;
 	for (int i = 0; i < NUM_ROWS; i++) {
-#pragma HLS PIPELINE
+#pragma HLS PIPELINE off
 		int r = rows_length[i];
 		int r_diff = r % II;
 		if (r == 0) {
@@ -159,7 +175,17 @@ void krnl_spmv_fast_multiport(
 			new_nnz += r;
 		}
 	}
-	spmv_kernel(rows_length, rows_length_pad, cols, values, y, x, new_nnz);
+
+
+	DTYPE x_dup[NUM_STREAMS][SIZE];
+
+	for (int i = 0; i < NUM_STREAMS; i++) {
+		for (int k=0; k < SIZE; k++) {
+			x_dup[i][k] = x[k];
+		}
+	}
+
+	spmv_kernel(rows_length, rows_length_pad, cols, values, y, x_dup, new_nnz);
 
 }
 }
