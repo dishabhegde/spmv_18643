@@ -233,7 +233,7 @@ int main(int argc, char* argv[]) {
 
     // This call will get the kernel object from program. A kernel is an
     // OpenCL function that is executed on the FPGA.
-    OCL_CHECK(err, krnl_sparse_matrix_mul = cl::Kernel(program,"krnl_spmv_fast", &err));
+    OCL_CHECK(err, krnl_sparse_matrix_mul = cl::Kernel(program,"krnl_spmv_fast_multiport", &err));
 
     std::cout << "Allocating the device buffers..." << std::endl;
     // These commands will allocate memory on the Device. The cl::Buffer objects can
@@ -319,7 +319,10 @@ int main(int argc, char* argv[]) {
 
     std::cout << "Launching the kernel..." << std::endl;
     //Launch the Kernel
+    cl::Event start, stop;
+    q.enqueueMarker(&start);
     OCL_CHECK(err, err = q.enqueueTask(krnl_sparse_matrix_mul));
+    q.enqueueMarker(&stop);
 
     // The result of the previous kernel execution will need to be retrieved in
     // order to view the results. This call will transfer the data from FPGA to
@@ -327,6 +330,15 @@ int main(int argc, char* argv[]) {
     OCL_CHECK(err, q.enqueueMigrateMemObjects({buffer_y},CL_MIGRATE_MEM_OBJECT_HOST));
 
     OCL_CHECK(err, q.finish());
+    cl_ulong time_start, time_end;
+
+    double total_time;
+    start.getProfilingInfo(CL_PROFILING_COMMAND_END, &time_start);
+    stop.getProfilingInfo(CL_PROFILING_COMMAND_START, &time_end);
+    total_time = time_end - time_start;
+
+
+    printf("Kernel execution time  %.6f ms elapsed\n", total_time / (float)10e6);
 
     hardware_end = getTimestamp();
 	printf("\rHardware version finished!\n\r");
