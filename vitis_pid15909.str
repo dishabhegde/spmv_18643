@@ -1,0 +1,316 @@
+/*
+
+Xilinx Vitis v2021.1.0 (64-bit) [Major: 2021, Minor: 1]
+SW Build 3245906 on 2021-06-09-18:10:55
+
+Process ID (PID): 15909
+License: Customer
+
+Current time: 	Wed Dec 06 20:41:18 EST 2023
+Time zone: 	Eastern Standard Time (America/New_York)
+
+OS: Red Hat Enterprise Linux Server release 7.9 (Maipo)
+OS Version: 3.10.0-1160.90.1.el7.x86_64
+OS Architecture: amd64
+Available processors (cores): 40
+
+Display: localhost:14.0
+Screen size: 2560x1440
+Available screens: 1
+Available disk space: 73 GB
+
+Java version: 	11.0.2 64-bit
+Java home: 	/afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis/2021.1/tps/lnx64/jre11.0.2
+Java executable location: 	/afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis/2021.1/tps/lnx64/jre11.0.2/bin/java
+Java initial memory (-Xms): 	64 MB
+Java maximum memory (-Xmx):	 1,024 MB
+
+Java library paths: /afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis/2021.1/tps/lnx64/javafx-sdk-11.0.2/lib:/afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis/2021.1/lib/lnx64.o/Default:/afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis/2021.1/lib/lnx64.o:/afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis/2021.1/tps/lnx64/jre11.0.2/lib/:/afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis/2021.1/tps/lnx64/jre11.0.2/lib//server:/afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis/2021.1/lib/lnx64.o:/afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis/2021.1/lib/lnx64.o/Default:/afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis/2021.1/lib/lnx64.o:/afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis/2021.1/tps/lnx64/python-3.8.3/lib:/afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis/2021.1/aietools/lib/lnx64.o:/afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis/2021.1/bin/../lnx64/tools/dot/lib:/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib
+
+Java class paths: /afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis/2021.1/eclipse/lnx64.o//plugins/org.eclipse.equinox.launcher_1.5.700.v20200207-2156.jar
+LD_LIBRARY_PATH: /afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis
+
+User name: 	zhengyu3
+User home directory: /afs/andrew.cmu.edu/usr22/zhengyu3
+User working directory: /scratch/643_vitis_zhengyu3/spmv_18643
+User country: 	US
+User language: 	en
+User locale: 	en_US
+
+RDI_BASEROOT: /afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis
+HDI_APPROOT: /afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis/2021.1
+RDI_DATADIR: /afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis/2021.1/data
+RDI_BINDIR: /afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis/2021.1/bin
+
+Vitis preferences directory: /afs/andrew.cmu.edu/usr22/zhengyu3/.Xilinx/Vitis/2021.1/
+Vitis workspace directory: /scratch/643_vitis_zhengyu3/spmv
+Vitis workspace log file location: /scratch/643_vitis_zhengyu3/spmv/.metadata/.log
+Engine tmp dir: 	
+
+Xilinx Environment Variables
+----------------------------
+OECORE_SDK_VERSION: 2021.1
+SDKTARGETSYSROOT: /afs/ece.cmu.edu/class/ece643/software/xilinxVitis/petalinux/2021.1/sysroots/cortexa72-cortexa53-xilinx-linux
+VITIS_ENV_SET: 1
+XILINX_DSP: 
+XILINX_HLS: /afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis_HLS/2021.1
+XILINX_PLANAHEAD: /afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis/2021.1
+XILINX_SDK: /afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis/2021.1
+XILINX_VITIS: /afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vitis/2021.1
+XILINX_VIVADO: /afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vivado/2021.1
+XILINX_VIVADO_HLS: /afs/ece.cmu.edu/class/ece643/software/xilinxVitis/Vivado/2021.1
+_RDI_DONT_SET_XILINX_AS_PATH: True
+
+
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+*/
+
+selectTreeTable("spmv_system", EventType.POPUP_TRIGGER_CLICK, "Explorer", "ProjectExplorer", "TreeViewer.NavigatorContentServiceContentProvider");
+selectMenuItem("Clean Project", "Explorer", "ProjectExplorer", "MenuItem.CLEAN_PROJECT");
+activateView("Console", "ConsoleView", "CTabItem.CONSOLE");
+selectTreeTable("Hardware", "spmv_system > spmv_kernels", EventType.POPUP_TRIGGER_CLICK, "Assistant", "SDXAssistantView", "TreeViewer.AssistantContentProvider");
+selectMenuItem("Build", "Assistant", "SDXAssistantView", "MenuItem.BUILD");
+activateView("Console", "ConsoleView", "CTabItem.CONSOLE");
+activateView("Problems", "0 items", "ProblemsView", "CTabItem.PROBLEMS");
+activateView("Console", "ConsoleView", "CTabItem.CONSOLE");
+activateView("Problems", "0 items", "ProblemsView", "CTabItem.PROBLEMS");
+activateView("Console", "ConsoleView", "CTabItem.CONSOLE");
+selectTreeTable("Hardware", "spmv_system > spmv_kernels", EventType.POPUP_TRIGGER_CLICK, "Assistant", "SDXAssistantView", "TreeViewer.AssistantContentProvider");
+activateView("Assistant", "SDXAssistantView", "CTabItem.ASSISTANT");
+selectTreeTable("Hardware", "spmv_system > spmv_kernels", EventType.POPUP_TRIGGER_CLICK, "Assistant", "SDXAssistantView", "TreeViewer.AssistantContentProvider");
+selectToolBarButton("Cancel Operation", "User Operation is Waiting", "BlockedJobsDialog", "ToolItem.CANCEL_OPERATION");
+activateView("spmv.h", "spmv_kernels/src/spmv.h", "CEditor", "CTabItem.SPMV_H");
+selectTreeTable("spmv_system", EventType.POPUP_TRIGGER_CLICK, "Explorer", "ProjectExplorer", "TreeViewer.NavigatorContentServiceContentProvider");
+selectMenuItem("Clean Project", "Explorer", "ProjectExplorer", "MenuItem.CLEAN_PROJECT");
+activateView("Console", "ConsoleView", "CTabItem.CONSOLE");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv.h", "spmv_kernels/src/spmv.h", "CEditor", "CTabItem.SPMV_H");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv.h", "spmv_kernels/src/spmv.h", "CEditor", "CTabItem.SPMV_H");
+activateView("*spmv_tb.h", "spmv/src/spmv_tb.h", "Editor", "CTabItem.*SPMV_TB_H");
+activateView("spmv.h", "spmv_kernels/src/spmv.h", "CEditor", "CTabItem.SPMV_H");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+selectTreeTable("Hardware", "spmv_system > spmv_kernels", EventType.POPUP_TRIGGER_CLICK, "Assistant", "SDXAssistantView", "TreeViewer.AssistantContentProvider");
+selectMenuItem("Build", "Assistant", "WorkbenchWindow", "MenuItem.BUILD");
+activateView("Console", "ConsoleView", "CTabItem.CONSOLE");
+activateView("Problems", "0 items", "ProblemsView", "CTabItem.PROBLEMS");
+activateView("Console", "ConsoleView", "CTabItem.CONSOLE");
+selectTreeTable("Hardware", "spmv_system > spmv_kernels", EventType.POPUP_TRIGGER_CLICK, "Assistant", "SDXAssistantView", "TreeViewer.AssistantContentProvider");
+selectMenuItem("Terminate", "Assistant", "WorkbenchWindow", "MenuItem.TERMINATE");
+activateView("spmv.h", "spmv_kernels/src/spmv.h", "CEditor", "CTabItem.SPMV_H");
+selectTreeTable("Hardware", "spmv_system > spmv_kernels", EventType.POPUP_TRIGGER_CLICK, "Assistant", "SDXAssistantView", "TreeViewer.AssistantContentProvider");
+selectMenuItem("Build", "Assistant", "WorkbenchWindow", "MenuItem.BUILD");
+activateView("Console", "ConsoleView", "CTabItem.CONSOLE");
+selectTreeTable("krnl_spmv_fast_multiport", "spmv_system > spmv_kernels > Hardware", "Assistant", "SDXAssistantView", "TreeViewer.AssistantContentProvider");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv.h", "spmv_kernels/src/spmv.h", "CEditor", "CTabItem.SPMV_H");
+selectTreeTable("Compile Summary", "spmv_system > spmv_kernels > Hardware > krnl_spmv_fast_multiport", EventType.DOUBLE_CLICK, "Assistant", "SDXAssistantView", "TreeViewer.AssistantContentProvider");
+activateView("Problems", "0 errors 1 warning 0 others", "ProblemsView", "CTabItem.PROBLEMS");
+selectTreeTable("spmv_system", EventType.POPUP_TRIGGER_CLICK, "Assistant", "SDXAssistantView", "TreeViewer.AssistantContentProvider");
+selectMenuItem("Build", "Assistant", "SDXAssistantView", "MenuItem.BUILD");
+activateView("Console", "ConsoleView", "CTabItem.CONSOLE");
+activateView("Problems", "3 errors 3 warnings 1 other", "ProblemsView", "CTabItem.PROBLEMS");
+selectProblemsView("s was not declared in this scope", "Errors", "ProblemsView", "TreeViewer.MarkerViewerContentProvider");
+activateView("Assistant", "SDXAssistantView", "CTabItem.ASSISTANT");
+selectTreeTable("Hardware", "spmv_system > spmv_system_hw_link", EventType.POPUP_TRIGGER_CLICK, "Assistant", "SDXAssistantView", "TreeViewer.AssistantContentProvider");
+selectMenuItem("Terminate", "Assistant", "SDXAssistantView", "MenuItem.TERMINATE");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("Problems", "4 errors 2 warnings 1 other", "ProblemsView", "CTabItem.PROBLEMS");
+selectProblemsView("make ***", "Errors", "ProblemsView", "TreeViewer.MarkerViewerContentProvider");
+selectProblemsView("make *** Waiting for unfinished jobs", "Errors", "ProblemsView", "TreeViewer.MarkerViewerContentProvider");
+selectProblemsView("make ***", "Errors", "ProblemsView", "TreeViewer.MarkerViewerContentProvider");
+selectProblemsView("s was not declared in this scope", "Errors", "ProblemsView", "TreeViewer.MarkerViewerContentProvider");
+activateView("Assistant", "SDXAssistantView", "CTabItem.ASSISTANT");
+selectTreeTable("spmv_system", "Errors", EventType.POPUP_TRIGGER_CLICK, "Assistant", "SDXAssistantView", "TreeViewer.AssistantContentProvider");
+selectMenuItem("Build", "Assistant", "SDXAssistantView", "MenuItem.BUILD");
+activateView("Console", "ConsoleView", "CTabItem.CONSOLE");
+activateView("Problems", "ProblemsView", "CTabItem.PROBLEMS");
+activateView("Problems", "1 error 2 warnings 1 other", "ProblemsView", "CTabItem.PROBLEMS");
+selectProblemsView("Unknown", "Errors", EventType.DOUBLE_CLICK, "ProblemsView", "TreeViewer.MarkerViewerContentProvider");
+activateView("Console", "ConsoleView", "CTabItem.CONSOLE");
+activateView("Problems", "ProblemsView", "CTabItem.PROBLEMS");
+selectProblemsView("cl_int cl::CommandQueue::enqueueMarker", "Warnings", "ProblemsView", "TreeViewer.MarkerViewerContentProvider");
+activateView("Assistant", "SDXAssistantView", "CTabItem.ASSISTANT");
+selectTreeTable("Hardware", "spmv_system > spmv_system_hw_link", EventType.POPUP_TRIGGER_CLICK, "Assistant", "SDXAssistantView", "TreeViewer.AssistantContentProvider");
+selectMenuItem("Terminate", "Assistant", "SDXAssistantView", "MenuItem.TERMINATE");
+activateView("Problems", "0 errors 2 warnings 2 others", "ProblemsView", "CTabItem.PROBLEMS");
+selectProblemsView("cl_int cl::CommandQueue::enqueueMarker", "Warnings", "ProblemsView", "TreeViewer.MarkerViewerContentProvider");
+selectProblemsView("Infos", "Warnings", "ProblemsView", "TreeViewer.MarkerViewerContentProvider");
+activateView("Console", "ConsoleView", "CTabItem.CONSOLE");
+selectTreeTable("spmv_system", EventType.POPUP_TRIGGER_CLICK, "Assistant", "SDXAssistantView", "TreeViewer.AssistantContentProvider");
+selectMenuItem("Build", "Assistant", "SDXAssistantView", "MenuItem.BUILD");
+activateView("Console", "ConsoleView", "CTabItem.CONSOLE");
+activateView("Problems", "ProblemsView", "CTabItem.PROBLEMS");
+activateView("Problems", "0 items", "ProblemsView", "CTabItem.PROBLEMS");
+activateView("Console", "ConsoleView", "CTabItem.CONSOLE");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("spmv.h", "spmv_kernels/src/spmv.h", "CEditor", "CTabItem.SPMV_H");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv.h", "spmv_kernels/src/spmv.h", "CEditor", "CTabItem.SPMV_H");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+selectTreeTable("Hardware", "spmv_system > spmv_system_hw_link", EventType.POPUP_TRIGGER_CLICK, "Assistant", "SDXAssistantView", "TreeViewer.AssistantContentProvider");
+selectMenuItem("Terminate", "Assistant", "SDXAssistantView", "MenuItem.TERMINATE");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("spmv_kernels", "spmv_kernels/spmv_kernels.prj", "SDXSettingsEditor", "CTabItem.SPMV_KERNELS");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+selectRadioButton("Forward", "Find/Replace", "FindReplaceDialog", "Button.FORWARD");
+selectRadioButton("Backward", "Find/Replace", "FindReplaceDialog", "Button.BACKWARD");
+selectButton("Find", "Find/Replace", "FindReplaceDialog", "Button.FIND");
+selectRadioButton("Backward", "Find/Replace", "FindReplaceDialog", "Button.BACKWARD");
+selectRadioButton("Forward", "Find/Replace", "FindReplaceDialog", "Button.FORWARD");
+selectButton("Find", "Find/Replace", "FindReplaceDialog", "Button.FIND");
+selectButton("Close", "Find/Replace", "FindReplaceDialog", "Button.CLOSE");
+selectMenuItem("Edit", "spmv", "WorkbenchWindow", "MenuItem.EDIT");
+selectMenuItem("Undo Typing", "spmv", "WorkbenchWindow", "MenuItem.UNDO_TYPING");
+selectMenuItem("Edit", "spmv", "WorkbenchWindow", "MenuItem.EDIT");
+selectMenuItem("Redo Typing", "spmv", "WorkbenchWindow", "MenuItem.REDO_TYPING");
+activateView("spmv.h", "spmv_kernels/src/spmv.h", "CEditor", "CTabItem.SPMV_H");
+activateView("spmv_system", "spmv_system/spmv_system.sprj", "SystemProjectSettingsEditor", "CTabItem.SPMV_SYSTEM");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv.h", "spmv_kernels/src/spmv.h", "CEditor", "CTabItem.SPMV_H");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv.h", "spmv_kernels/src/spmv.h", "CEditor", "CTabItem.SPMV_H");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv.h", "spmv_kernels/src/spmv.h", "CEditor", "CTabItem.SPMV_H");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+selectTreeTable("Hardware", "spmv_system > spmv_system_hw_link", EventType.POPUP_TRIGGER_CLICK, "Assistant", "SDXAssistantView", "TreeViewer.AssistantContentProvider");
+activateView("Assistant", "SDXAssistantView", "CTabItem.ASSISTANT");
+selectTreeTable("Hardware", "spmv_system > spmv_kernels", EventType.POPUP_TRIGGER_CLICK, "Assistant", "SDXAssistantView", "TreeViewer.AssistantContentProvider");
+selectMenuItem("Build", "Assistant", "SDXAssistantView", "MenuItem.BUILD");
+activateView("Console", "ConsoleView", "CTabItem.CONSOLE");
+activateView("spmv.h", "spmv_kernels/src/spmv.h", "CEditor", "CTabItem.SPMV_H");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("Problems", "2 errors 0 warnings 0 others", "ProblemsView", "CTabItem.PROBLEMS");
+activateView("Console", "ConsoleView", "CTabItem.CONSOLE");
+activateView("spmv.h", "spmv_kernels/src/spmv.h", "CEditor", "CTabItem.SPMV_H");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv.h", "spmv_kernels/src/spmv.h", "CEditor", "CTabItem.SPMV_H");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("Problems", "2 errors 0 warnings 0 others", "ProblemsView", "CTabItem.PROBLEMS");
+activateView("Console", "ConsoleView", "CTabItem.CONSOLE");
+activateView("spmv.h", "spmv_kernels/src/spmv.h", "CEditor", "CTabItem.SPMV_H");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv.h", "spmv_kernels/src/spmv.h", "CEditor", "CTabItem.SPMV_H");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv.h", "spmv_kernels/src/spmv.h", "CEditor", "CTabItem.SPMV_H");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+selectButton("Find", "Find/Replace", "FindReplaceDialog", "Button.FIND");
+selectButton("Find", "Find/Replace", "FindReplaceDialog", "Button.FIND");
+selectButton("Find", "Find/Replace", "FindReplaceDialog", "Button.FIND");
+selectButton("Find", "Find/Replace", "FindReplaceDialog", "Button.FIND");
+selectButton("Find", "Find/Replace", "FindReplaceDialog", "Button.FIND");
+selectButton("Find", "Find/Replace", "FindReplaceDialog", "Button.FIND");
+selectButton("Find", "Find/Replace", "FindReplaceDialog", "Button.FIND");
+selectButton("Find", "Find/Replace", "FindReplaceDialog", "Button.FIND");
+selectButton("Find", "Find/Replace", "FindReplaceDialog", "Button.FIND");
+selectButton("Find", "Find/Replace", "FindReplaceDialog", "Button.FIND");
+selectButton("Find", "Find/Replace", "FindReplaceDialog", "Button.FIND");
+selectButton("Find", "Find/Replace", "FindReplaceDialog", "Button.FIND");
+selectButton("Find", "Find/Replace", "FindReplaceDialog", "Button.FIND");
+selectButton("Find", "Find/Replace", "FindReplaceDialog", "Button.FIND");
+selectButton("Find", "Find/Replace", "FindReplaceDialog", "Button.FIND");
+selectButton("Find", "Find/Replace", "FindReplaceDialog", "Button.FIND");
+selectButton("Find", "Find/Replace", "FindReplaceDialog", "Button.FIND");
+selectButton("Find", "Find/Replace", "FindReplaceDialog", "Button.FIND");
+selectButton("Find", "Find/Replace", "FindReplaceDialog", "Button.FIND");
+selectButton("Find", "Find/Replace", "FindReplaceDialog", "Button.FIND");
+activateView("Assistant", "SDXAssistantView", "CTabItem.ASSISTANT");
+selectTreeTable("Compile Summary", "spmv_system > spmv_kernels > Hardware > krnl_spmv_fast_multiport", EventType.DOUBLE_CLICK, "Assistant", "SDXAssistantView", "TreeViewer.AssistantContentProvider");
+activateView("Assistant", "SDXAssistantView", "CTabItem.ASSISTANT");
+selectTreeTable("Hardware", "spmv_system > spmv_system_hw_link", "Assistant", "SDXAssistantView", "TreeViewer.AssistantContentProvider");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+selectTreeTable("spmv_system", EventType.POPUP_TRIGGER_CLICK, "Assistant", "SDXAssistantView", "TreeViewer.AssistantContentProvider");
+selectMenuItem("Build", "Assistant", "SDXAssistantView", "MenuItem.BUILD");
+activateView("Console", "ConsoleView", "CTabItem.CONSOLE");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+selectTreeTable("Hardware", "spmv_system > spmv_system_hw_link", EventType.POPUP_TRIGGER_CLICK, "Assistant", "SDXAssistantView", "TreeViewer.AssistantContentProvider");
+selectMenuItem("Terminate", "Assistant", "SDXAssistantView", "MenuItem.TERMINATE");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("spmv_kernels", "spmv_kernels/spmv_kernels.prj", "SDXSettingsEditor", "CTabItem.SPMV_KERNELS");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("spmv.h", "spmv_kernels/src/spmv.h", "CEditor", "CTabItem.SPMV_H");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv.h", "spmv_kernels/src/spmv.h", "CEditor", "CTabItem.SPMV_H");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("spmv_tb.h", "spmv/src/spmv_tb.h", "CEditor", "CTabItem.SPMV_TB_H");
+selectTreeTable("spmv_system", EventType.POPUP_TRIGGER_CLICK, "Explorer", "ProjectExplorer", "TreeViewer.NavigatorContentServiceContentProvider");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("spmv_kernels", "spmv_kernels/spmv_kernels.prj", "SDXSettingsEditor", "CTabItem.SPMV_KERNELS");
+activateView("spmv_tb.cpp", "spmv/src/spmv_tb.cpp", "CEditor", "CTabItem.SPMV_TB_CPP");
+activateView("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", "CEditor", "CTabItem.KRNL_SPMV_FAST_MULTIPORT_CPP");
+selectTreeTable("spmv_system", EventType.POPUP_TRIGGER_CLICK, "Explorer", "ProjectExplorer", "TreeViewer.NavigatorContentServiceContentProvider");
+selectMenuItem("Build Project", "Explorer", "ProjectExplorer", "MenuItem.BUILD_PROJECT");
+activateView("Console", "ConsoleView", "CTabItem.CONSOLE");
+activateView("Problems", "1 error 0 warnings 0 others", "ProblemsView", "CTabItem.PROBLEMS");
+activateView("Console", "ConsoleView", "CTabItem.CONSOLE");
+selectTextEditor("krnl_spmv_fast_multiport.cpp", "spmv_kernels/src/krnl_spmv_fast_multiport.cpp", EventType.POPUP_TRIGGER_CLICK, "CEditor", "StyledText.KRNL_SPMV_FAST_MULTIPORT_CPP");
+activateView("Problems", "1 error 2 warnings 1 other", "ProblemsView", "CTabItem.PROBLEMS");
+selectButton("Exit", "Confirm Exit", "MessageDialogWithToggle", "Button.EXIT");
+selectButton("Cancel", "Terminate running build", "MessageDialog", "Button.CANCEL");
+selectButton("Exit", "Confirm Exit", "MessageDialogWithToggle", "Button.EXIT");
+selectButton("Yes", "Terminate running build", "MessageDialog", "Button.YES");
+// Exiting Xilinx Vitis with a status code '0' at 12/6/23, 11:17:17 PM EST
+// Elapsed time: 02:35:59
+

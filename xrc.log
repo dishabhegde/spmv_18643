@@ -1,0 +1,83 @@
+Wed Dec  6 20:41:19 2023: Server was asked to start on port: '40189'
+Wed Dec  6 20:41:19 2023: Server is using token UUID: 'ec4b72b1-5ace-4c11-8554-b6aec22c24fd'
+Wed Dec  6 20:41:19 2023: Attempting to start server on port '40189'
+Wed Dec  6 20:41:19 2023: XRC main fifo: created main fifo '/tmp/xrcmainec4b72b1-5ace-4c11-8554-b6aec22c24fd', fd read = 11
+Wed Dec  6 20:41:19 2023: Running Rule Check Server
+Wed Dec  6 20:41:19 2023: Version 1.6.1
+Wed Dec  6 20:41:19 2023: Rule Check Server: Accepted socket connection from client
+Wed Dec  6 20:41:19 2023: EXCHANGE_TOKEN received, server token: ec4b72b1-5ace-4c11-8554-b6aec22c24fd, passed token: ec4b72b1-5ace-4c11-8554-b6aec22c24fd
+Wed Dec  6 20:41:35 2023: SESSION_MGR: creating session with session uuid: '96064632-8c6f-444f-a2c4-7d1a31b8c7ae' and name 'Hardware'
+Wed Dec  6 20:41:36 2023: SESSION_MGR: creating session with session uuid: 'ba2a1f86-f7df-439b-b368-26b52e4462b6' and name 'Hardware'
+Wed Dec  6 20:41:36 2023: SESSION_MGR: creating session with session uuid: 'e736138f-15dc-40fc-b2c0-75ae0b50e4fc' and name 'Hardware'
+Wed Dec  6 20:41:36 2023: SESSION_MGR: closing session for UUID '96064632-8c6f-444f-a2c4-7d1a31b8c7ae' with name 'Hardware'
+Wed Dec  6 20:41:37 2023: SESSION_MGR: closing session for UUID 'ba2a1f86-f7df-439b-b368-26b52e4462b6' with name 'Hardware'
+Wed Dec  6 20:41:37 2023: SESSION_MGR: closing session for UUID 'e736138f-15dc-40fc-b2c0-75ae0b50e4fc' with name 'Hardware'
+Wed Dec  6 20:42:08 2023: SESSION_MGR: creating session with session uuid: '3ece6e0e-e5be-4d29-87eb-07a38f8aec0e' and name 'Hardware'
+Wed Dec  6 20:42:24 2023: Rule Check Server: Accepted socket connection from client
+Wed Dec  6 20:42:37 2023: Rule Check Server: Accepted socket connection from client
+Wed Dec  6 20:47:39 2023: SESSION_MGR: closing session for UUID '3ece6e0e-e5be-4d29-87eb-07a38f8aec0e' with name 'Hardware'
+Wed Dec  6 20:48:09 2023: SESSION_MGR: creating session with session uuid: '08b0294e-7921-4b0d-a3d8-86b529591640' and name 'Hardware'
+Wed Dec  6 20:48:10 2023: SESSION_MGR: creating session with session uuid: '0925afaf-75be-4ced-9782-cd467c9c096b' and name 'Hardware'
+Wed Dec  6 20:48:10 2023: SESSION_MGR: closing session for UUID '08b0294e-7921-4b0d-a3d8-86b529591640' with name 'Hardware'
+Wed Dec  6 20:48:10 2023: SESSION_MGR: creating session with session uuid: 'acaa381a-8d51-472b-8e82-3571a8be5cb2' and name 'Hardware'
+Wed Dec  6 20:48:10 2023: SESSION_MGR: closing session for UUID '0925afaf-75be-4ced-9782-cd467c9c096b' with name 'Hardware'
+Wed Dec  6 20:48:11 2023: SESSION_MGR: closing session for UUID 'acaa381a-8d51-472b-8e82-3571a8be5cb2' with name 'Hardware'
+Wed Dec  6 20:49:30 2023: SESSION_MGR: creating session with session uuid: '42c1ac6e-52b3-49c3-b299-ab270630cb62' and name 'Hardware'
+Wed Dec  6 20:49:46 2023: Rule Check Server: Accepted socket connection from client
+Wed Dec  6 20:50:01 2023: Rule Check Server: Accepted socket connection from client
+Wed Dec  6 20:50:16 2023: SESSION_MGR: closing session for UUID '42c1ac6e-52b3-49c3-b299-ab270630cb62' with name 'Hardware'
+Wed Dec  6 20:51:03 2023: SESSION_MGR: creating session with session uuid: 'ac001732-c318-4792-b1a1-f0497b8b6de4' and name 'Hardware'
+Wed Dec  6 20:51:19 2023: Rule Check Server: Accepted socket connection from client
+Wed Dec  6 20:51:33 2023: Rule Check Server: Accepted socket connection from client
+Wed Dec  6 21:02:01 2023: SESSION_MGR: closing session for UUID 'ac001732-c318-4792-b1a1-f0497b8b6de4' with name 'Hardware'
+Wed Dec  6 21:08:00 2023: SESSION_MGR: creating session with session uuid: 'b1e1195d-874d-4896-9075-0c62fedd40ef' and name 'Hardware'
+Wed Dec  6 21:08:06 2023: SESSION_MGR: closing session for UUID 'b1e1195d-874d-4896-9075-0c62fedd40ef' with name 'Hardware'
+Wed Dec  6 21:08:06 2023: SESSION_MGR: creating session with session uuid: 'aeae6c2a-69de-409a-ac08-4dc2339ea468' and name 'Hardware'
+Wed Dec  6 21:08:07 2023: SESSION_MGR: closing session for UUID 'aeae6c2a-69de-409a-ac08-4dc2339ea468' with name 'Hardware'
+Wed Dec  6 21:08:07 2023: SESSION_MGR: creating session with session uuid: '7162fcfe-3776-4ebe-8605-91b262aad33e' and name 'Hardware'
+Wed Dec  6 21:08:18 2023: SESSION_MGR: closing session for UUID '7162fcfe-3776-4ebe-8605-91b262aad33e' with name 'Hardware'
+Wed Dec  6 21:08:52 2023: SESSION_MGR: creating session with session uuid: 'fe2fba3b-b075-4703-aeea-a11638d8e1af' and name 'Hardware'
+Wed Dec  6 21:08:58 2023: SESSION_MGR: closing session for UUID 'fe2fba3b-b075-4703-aeea-a11638d8e1af' with name 'Hardware'
+Wed Dec  6 21:08:58 2023: SESSION_MGR: creating session with session uuid: 'd0a523f5-b409-41cb-85d6-41a98a6ef53b' and name 'Hardware'
+Wed Dec  6 21:08:58 2023: SESSION_MGR: closing session for UUID 'd0a523f5-b409-41cb-85d6-41a98a6ef53b' with name 'Hardware'
+Wed Dec  6 21:08:59 2023: SESSION_MGR: creating session with session uuid: 'd68a5a6b-2803-4ca7-bb32-973fb53e9614' and name 'Hardware'
+Wed Dec  6 21:09:12 2023: SESSION_MGR: closing session for UUID 'd68a5a6b-2803-4ca7-bb32-973fb53e9614' with name 'Hardware'
+Wed Dec  6 21:09:24 2023: SESSION_MGR: creating session with session uuid: 'b8b5a8dc-3e58-400f-912d-7c901991ece6' and name 'Hardware'
+Wed Dec  6 21:09:24 2023: SESSION_MGR: closing session for UUID 'b8b5a8dc-3e58-400f-912d-7c901991ece6' with name 'Hardware'
+Wed Dec  6 21:09:25 2023: SESSION_MGR: creating session with session uuid: 'dec3a339-4f87-4dad-a2bb-71479ff9ebd6' and name 'Hardware'
+Wed Dec  6 21:09:26 2023: SESSION_MGR: closing session for UUID 'dec3a339-4f87-4dad-a2bb-71479ff9ebd6' with name 'Hardware'
+Wed Dec  6 21:09:26 2023: SESSION_MGR: creating session with session uuid: '286bd7cf-9fd7-4cbe-8033-e7827043d9e1' and name 'Hardware'
+Wed Dec  6 21:09:43 2023: Rule Check Server: Accepted socket connection from client
+Wed Dec  6 21:09:50 2023: Rule Check Server: Accepted socket connection from client
+Wed Dec  6 21:10:46 2023: Rule Check Server: Accepted socket connection from client
+Wed Dec  6 21:53:31 2023: SESSION_MGR: closing session for UUID '286bd7cf-9fd7-4cbe-8033-e7827043d9e1' with name 'Hardware'
+Wed Dec  6 22:11:41 2023: SESSION_MGR: creating session with session uuid: 'bc7dd3b5-a18f-441c-8ffd-71473cadc2bd' and name 'Hardware'
+Wed Dec  6 22:11:57 2023: Rule Check Server: Accepted socket connection from client
+Wed Dec  6 22:12:13 2023: Rule Check Server: Accepted socket connection from client
+Wed Dec  6 22:22:38 2023: SESSION_MGR: closing session for UUID 'bc7dd3b5-a18f-441c-8ffd-71473cadc2bd' with name 'Hardware'
+Wed Dec  6 22:26:25 2023: SESSION_MGR: creating session with session uuid: '7f592635-cf05-4f56-8ca3-528dd0b34305' and name 'Hardware'
+Wed Dec  6 22:26:30 2023: SESSION_MGR: closing session for UUID '7f592635-cf05-4f56-8ca3-528dd0b34305' with name 'Hardware'
+Wed Dec  6 22:26:30 2023: SESSION_MGR: creating session with session uuid: '383b4fc4-363c-48e0-abd2-30c099ec7223' and name 'Hardware'
+Wed Dec  6 22:26:30 2023: SESSION_MGR: closing session for UUID '383b4fc4-363c-48e0-abd2-30c099ec7223' with name 'Hardware'
+Wed Dec  6 22:26:31 2023: SESSION_MGR: creating session with session uuid: 'b5864e93-093e-4e28-9a89-f275acc0e018' and name 'Hardware'
+Wed Dec  6 22:26:47 2023: Rule Check Server: Accepted socket connection from client
+Wed Dec  6 22:26:54 2023: Rule Check Server: Accepted socket connection from client
+Wed Dec  6 22:27:52 2023: Rule Check Server: Accepted socket connection from client
+Wed Dec  6 23:01:40 2023: SESSION_MGR: closing session for UUID 'b5864e93-093e-4e28-9a89-f275acc0e018' with name 'Hardware'
+Wed Dec  6 23:04:38 2023: SESSION_MGR: creating session with session uuid: '0b84fe5e-e765-4b5c-8a9f-812ca82bdfe8' and name 'Hardware'
+Wed Dec  6 23:04:44 2023: SESSION_MGR: closing session for UUID '0b84fe5e-e765-4b5c-8a9f-812ca82bdfe8' with name 'Hardware'
+Wed Dec  6 23:04:44 2023: SESSION_MGR: creating session with session uuid: '04e2f713-581f-43e7-9f8d-82a6d8236d97' and name 'Hardware'
+Wed Dec  6 23:04:59 2023: Rule Check Server: Accepted socket connection from client
+Wed Dec  6 23:05:17 2023: Rule Check Server: Accepted socket connection from client
+Wed Dec  6 23:08:34 2023: SESSION_MGR: closing session for UUID '04e2f713-581f-43e7-9f8d-82a6d8236d97' with name 'Hardware'
+Wed Dec  6 23:08:34 2023: SESSION_MGR: creating session with session uuid: '8a8effe3-e6e5-4003-8c03-05eb4fe55dd5' and name 'Hardware'
+Wed Dec  6 23:08:50 2023: Rule Check Server: Accepted socket connection from client
+Wed Dec  6 23:08:56 2023: Rule Check Server: Accepted socket connection from client
+Wed Dec  6 23:09:53 2023: Rule Check Server: Accepted socket connection from client
+Wed Dec  6 23:17:15 2023: SESSION_MGR: closing session for UUID '8a8effe3-e6e5-4003-8c03-05eb4fe55dd5' with name 'Hardware'
+Wed Dec  6 23:17:17 2023: STOP_SERVER received, server token: ec4b72b1-5ace-4c11-8554-b6aec22c24fd, passed token: ec4b72b1-5ace-4c11-8554-b6aec22c24fd
+Wed Dec  6 23:17:17 2023: Socket received request to stop server.
+Wed Dec  6 23:17:17 2023: SERVER: destructor for server bound to port 40189
+Wed Dec  6 23:17:17 2023: XRC main fifo: Good unlink of /tmp/xrcmainec4b72b1-5ace-4c11-8554-b6aec22c24fd
+Wed Dec  6 23:17:17 2023: Server exiting with status 0.
+Wed Dec  6 23:17:17 2023: Closing log file.
